@@ -25,7 +25,6 @@ pub struct ChessPiece {
     colour: Colour
 }
 
-
 pub type Board = [[ChessPiece; 8]; 8];
 
 pub fn print_board(board: &Board) {
