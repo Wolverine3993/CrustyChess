@@ -1,4 +1,5 @@
 pub mod fen;
+pub mod square_values;
 
 #[derive(PartialEq, Debug, Copy, Clone)]
 pub enum Colour {
@@ -31,20 +32,24 @@ pub fn print_board(board: &Board) {
     let mut print_str = String::new();
     for row in board {
         for piece in row {
-            let mut piece_char = match piece.piece_type {
-                PieceType::King => "k",
-                PieceType::Bishop => "b",
-                PieceType::Knight => "n",
-                PieceType::Pawn => "p",
-                PieceType::Queen => "q",
-                PieceType::Rook => "r",
-                PieceType::Space => "o"
-            }.to_string();
+            let piece_char_string: String;
+            let piece_char = match piece.piece_type {
+                PieceType::King => ("♔", "♚"),
+                PieceType::Bishop => ("♗", "♝"),
+                PieceType::Knight => ("♘", "♞"),
+                PieceType::Pawn => ("♙", "♟"),
+                PieceType::Queen => ("♕", "♛"),
+                PieceType::Rook => ("♖", "♜"),
+                PieceType::Space => ("o", "o")
+            };
 
             if piece.colour == Colour::White {
-                piece_char = piece_char.to_uppercase();
+                piece_char_string = piece_char.0.to_string();
             }
-            print_str += &piece_char;
+            else {
+                piece_char_string = piece_char.1.to_string();
+            }
+            print_str += &piece_char_string;
             print_str += " ";
         }
 

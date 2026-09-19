@@ -79,7 +79,7 @@ fn test_get_piece() {
     assert_eq!(piece.piece_type, King);
     assert_eq!(piece.colour, Black);
 
-    let piece = match get_piece(&'k').unwrap() {
+    let piece = match get_piece(&'K').unwrap() {
         PieceResult::ChessPiece(piece) => piece,
         PieceResult::Space(_) => panic!()
     };
