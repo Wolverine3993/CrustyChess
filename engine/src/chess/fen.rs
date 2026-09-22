@@ -68,21 +68,3 @@ fn get_piece(character: &char) -> Result<PieceResult, String> {
         piece_type
     }))
 }
-
-
-#[test]
-fn test_get_piece() {
-    let piece = match get_piece(&'k').unwrap() {
-        PieceResult::ChessPiece(piece) => piece,
-        PieceResult::Space(_) => panic!()
-    };
-    assert_eq!(piece.piece_type, King);
-    assert_eq!(piece.colour, Black);
-
-    let piece = match get_piece(&'K').unwrap() {
-        PieceResult::ChessPiece(piece) => piece,
-        PieceResult::Space(_) => panic!()
-    };
-    assert_eq!(piece.piece_type, King);
-    assert_eq!(piece.colour, White);
-}

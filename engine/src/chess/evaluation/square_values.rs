@@ -80,7 +80,7 @@ pub enum GamePhase {
     ENDGAME
 }
 
-pub fn get_square(piece: ChessPiece, game_phase: GamePhase) -> [[i32; 8]; 8] {
+pub fn get_square(piece: &ChessPiece, game_phase: GamePhase) -> [[i32; 8]; 8] {
     match piece.piece_type {
         PieceType::Pawn => get_coloured_square(PAWN, piece.colour),
         PieceType::Bishop => get_coloured_square(BISHOP, piece.colour),

@@ -1,5 +1,6 @@
 pub mod fen;
-pub mod square_values;
+mod evaluation;
+mod moves;
 
 #[derive(PartialEq, Debug, Copy, Clone)]
 pub enum Colour {
