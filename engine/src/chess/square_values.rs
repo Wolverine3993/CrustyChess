@@ -1,4 +1,4 @@
-use crate::chess::PieceType;
+use crate::chess::{ChessPiece, Colour, PieceType};
 
 // I'm so excited to finally be able to have a file of random magic numbers
 // I feel like a real programmer
@@ -80,20 +80,39 @@ pub enum GamePhase {
     ENDGAME
 }
 
-pub fn get_square(piece: PieceType, game_phase: GamePhase) -> [[i32; 8]; 8] {
-    match piece {
-        PieceType::Pawn => PAWN,
-        PieceType::Bishop => BISHOP,
-        PieceType::Knight => KNIGHT,
-        PieceType::Rook => ROOK,
-        PieceType::Queen => QUEEN,
+pub fn get_square(piece: ChessPiece, game_phase: GamePhase) -> [[i32; 8]; 8] {
+    match piece.piece_type {
+        PieceType::Pawn => get_coloured_square(PAWN, piece.colour),
+        PieceType::Bishop => get_coloured_square(BISHOP, piece.colour),
+        PieceType::Knight => get_coloured_square(KNIGHT, piece.colour),
+        PieceType::Rook => get_coloured_square(ROOK, piece.colour),
+        PieceType::Queen => get_coloured_square(QUEEN, piece.colour),
         PieceType::King => {
             if game_phase == GamePhase::MIDGAME {
-                KING_MIDGAME
+                get_coloured_square(KING_MIDGAME, piece.colour)
             } else {
-                KING_ENDGAME
+                get_coloured_square(KING_ENDGAME, piece.colour)
             }
         },
         PieceType::Space => [[0; 8]; 8]
     }
+}
+
+fn get_coloured_square(square: [[i32; 8]; 8], colour: Colour) -> [[i32; 8]; 8] {
+    match colour {
+        Colour::Black => flip(square),
+        _ => square
+    }
+}
+
+fn flip(square: [[i32; 8]; 8]) -> [[i32; 8]; 8] {
+    let mut flipped_square = [[0; 8]; 8];
+
+    for y in 0..8 {
+        for x in 0..8 {
+            flipped_square[y][x] = square[7 - y][7 - x];
+        }
+    }
+
+    flipped_square
 }
