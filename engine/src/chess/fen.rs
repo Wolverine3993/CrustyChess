@@ -10,7 +10,7 @@ pub fn parse_fen(fen: String) -> Result<Board, String> {
             return Err("Invalid FEN - too many rows".to_string());
         }
 
-        let mut row: [ChessPiece; 8] = [ChessPiece {colour: Colourless, piece_type: Space}; 8];
+        let mut row: [ChessPiece; 8] = [ChessPiece {colour: Colourless, piece_type: Space, is_first_move: false, moved_forward_twice: false}; 8];
         let mut pointer = 0;
         for piece_char in fen_row.chars() {
             if pointer >= 8 {
@@ -38,7 +38,7 @@ enum PieceResult {
 }
 
 fn new_board() -> Board {
-    [[ChessPiece { piece_type: Space, colour: Colourless }; 8]; 8]
+    [[ChessPiece { piece_type: Space, colour: Colourless, is_first_move: false, moved_forward_twice: false }; 8]; 8]
 }
 
 fn get_piece(character: &char) -> Result<PieceResult, String> {
@@ -65,6 +65,8 @@ fn get_piece(character: &char) -> Result<PieceResult, String> {
 
     Ok(PieceResult::ChessPiece(ChessPiece {
         colour,
-        piece_type
+        piece_type,
+        is_first_move: true,
+        moved_forward_twice: false,
     }))
 }

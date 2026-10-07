@@ -23,7 +23,9 @@ pub enum PieceType {
 #[derive(Debug, Copy, Clone)]
 pub struct ChessPiece {
     piece_type: PieceType,
-    colour: Colour
+    colour: Colour,
+    is_first_move: bool,
+    moved_forward_twice: bool
 }
 
 pub type Board = [[ChessPiece; 8]; 8];
